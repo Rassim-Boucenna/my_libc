@@ -1,4 +1,3 @@
-// my_strcpy
 #include "my_libc.h"
 
 char *
