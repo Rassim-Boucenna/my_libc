@@ -13,6 +13,11 @@ $(NAME): $(OBJS)
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
+format :
+	clang-format -i $(SRCS) $(HEADERS)
+
+check:
+	clang-format --dry-run --Werror $(SRCS) $(HEADERS)
 clean:
 	rm -f $(OBJS)
 
