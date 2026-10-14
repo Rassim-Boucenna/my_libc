@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c11
 
 NAME = my_libc.a
-SRCS = my_strlen.c
+SRCS = my_strlen.c my_strcpy.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
