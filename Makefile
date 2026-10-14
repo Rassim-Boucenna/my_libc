@@ -1,23 +1,20 @@
-NAME = libmy_libc.a
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -std=c11
 
-CC ?= cc
-CFLAGS ?= -Wall -Wextra -Werror -std=c11 -c
-AR ?= ar
-ARFLAGS = rcs
-
-SRC = my_strlen.c
-OBJ = $(SRC:.c=.o)
+NAME = my_libc.a
+SRCS = my_strlen.c
+OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(AR) $(ARFLAGS) $@ $^
+$(NAME): $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
-%.o: %.c my_libc.h
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJS)
 
 fclean: clean
 	rm -f $(NAME)
