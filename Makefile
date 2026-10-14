@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c11
 
 NAME = my_libc.a
-SRCS = my_strlen.c my_strcpy.c my_strncpy.c my_strcat.c my_strncat.c my_strcmp.c my_strncmp.c my_strchr.c my_isalnum.c my_isalpha.c my_isdigit.c my_isprint.c my_isascii.c my_toupper.c my_tolower.c my_memset.c my_memcpy.c my_memmove.c my_memcmp.c my_memchr.c
+SRCS = my_strlen.c my_strcpy.c my_strncpy.c my_strcat.c my_strncat.c my_strcmp.c my_strncmp.c my_strchr.c 
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
