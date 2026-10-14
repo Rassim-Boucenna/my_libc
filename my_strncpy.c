@@ -9,7 +9,7 @@ my_strncpy(char *dst, const char *src, size_t n)
 		if (i < n) {
 			d[i] = src[i];
 		} else {
-			d[i] = '\0';
+            break;
 		}
 	}
 	return dst;
