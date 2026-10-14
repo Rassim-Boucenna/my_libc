@@ -1,4 +1,4 @@
-//header
+// header
 
 #ifndef MY_LIBC_H
 #define MY_LIBC_H
