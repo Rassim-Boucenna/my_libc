@@ -1,7 +1,7 @@
 NAME = libmy_libc.a
 
 CC ?= cc
-CFLAGS ?= -Wall -Wextra -Werror -std=c11
+CFLAGS ?= -Wall -Wextra -Werror -std=c11 -c
 AR ?= ar
 ARFLAGS = rcs
 
