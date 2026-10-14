@@ -10,11 +10,6 @@ my_strncat(char *dst, const char *src, size_t n)
 		i++;
 		j++;
 	}
-	while (i < n) {
-		dst[i] = '\0';
-		i++;
-		j++;
-	}
-	dst[i] = '\0';
+	dst = my_strncpy(dst, dst, n);
 	return dst;
 }
