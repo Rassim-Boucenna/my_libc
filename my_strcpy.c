@@ -5,7 +5,10 @@ char *
 my_strcpy(char *dst, const char *src)
 {
     char *d = dst;
-    while ((*d++ = *src++) != '\0')
-        ;
+    int i = 0;
+    while (src[i] != '\0') {
+        d[i] = src[i];
+        i++;
+    }
     return dst;
 }
