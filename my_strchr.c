@@ -3,14 +3,10 @@
 char *
 my_strchr(const char *s, int c)
 {
-	while (*s != '\0') {
-		if (*s == c) {
-			return (char *)s;
-		}
-		s++;
+	int i;
+	if (i = 0; s[i] != '\0'; i++)
+	{
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
 	}
-	if (*s == c) {
-		return (char *)s;
-	}
-	return NULL;
 }
