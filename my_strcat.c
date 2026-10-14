@@ -4,9 +4,11 @@ char *
 my_strcat(char *dst, const char *src)
 {
 	int i = my_strlen(dst);
-	while (src[i] != '\0') {
-		dst[i] = src[i];
+    int j = 0;
+	while (src[j] != '\0') {
+		dst[i] = src[j];
 		i++;
+		j++;
 	}
 	dst[i] = '\0';
 	return dst;
