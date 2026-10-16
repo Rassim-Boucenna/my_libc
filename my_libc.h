@@ -13,11 +13,11 @@ char *my_strncat(char *dst, const char *src, size_t n);
 int my_strcmp(const char *s1, const char *s2);
 int my_strncmp(const char *s1, const char *s2, size_t n);
 char *my_strchr(const char *s, int c);
-int my_memcmp(const void *b1, const void *b2, size_t len);
-int my_isalnum(int c);
 char *my_strrchr(const char *s, int c);
 char *my_strstr(const char *haystack, const char *needle);
+int my_isalnum(int c);
 void *my_memset(void *b, int c, size_t len);
 void *my_memcpy(void *dst, const void *src, size_t len);
 void *my_memmove(void *dst, const void *src, size_t len);
+int my_memcmp(const void *b1, const void *b2, size_t len);
 #endif
