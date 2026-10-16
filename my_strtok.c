@@ -3,33 +3,34 @@
 char *
 my_strtok(char *str, const char *delim)
 {
-	static char *saveptr;
-	char *token;
+    static char *saveptr = NULL;
+    char *token;
 
-	if (str == NULL)
-		str = saveptr;
+    if (delim == NULL || *delim == '\0')
+        return NULL;
+    if (str == NULL)
+        str = saveptr;
+    if (str == NULL)
+        return NULL;
 
-	/* Skip leading delimiters */
-	while (*str && my_strchr(delim, *str))
-		str++;
+    while (*str != '\0' && my_strchr(delim, *str) != NULL)
+        str++;
 
-	if (*str == '\0') {
-		saveptr = str;
-		return NULL;
-	}
+    if (*str == '\0') {
+        saveptr = NULL;
+        return NULL;
+    }
 
-	token = str;
+    token = str;
+    while (*str != '\0' && my_strchr(delim, *str) == NULL)
+        str++;
 
-	/* Find the end of the token */
-	while (*str && !my_strchr(delim, *str))
-		str++;
+    if (*str != '\0') {
+        *str = '\0';
+        saveptr = str + 1;
+    } else {
+        saveptr = NULL;
+    }
 
-	if (*str) {
-		*str = '\0';
-		saveptr = str + 1;
-	} else {
-		saveptr = str;
-	}
-
-	return token;
+    return token;
 }
