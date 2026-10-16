@@ -3,7 +3,12 @@
 void
 my_explicit_bzero(void *s, size_t len)
 {
-	volatile unsigned char *p = (volatile unsigned char *)s;
-	while (len--)
+	volatile unsigned char *p;
+
+	if (s == NULL || len == 0)
+		return;
+	p = (volatile unsigned char *)s;
+	while (len--) {
 		*p++ = 0;
+	}
 }
