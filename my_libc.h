@@ -33,4 +33,5 @@ int my_isalpha(int c);
 int my_isspace(int c);
 int my_isprint(int c);
 int my_toupper(int c);
+int my_tolower(int c);
 #endif
