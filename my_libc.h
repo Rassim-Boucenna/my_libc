@@ -15,4 +15,5 @@ int my_strncmp(const char *s1, const char *s2, size_t n);
 char *my_strchr(const char *s, int c);
 int my_memcmp(const void *b1, const void *b2, size_t len);
 int my_isalnum(int c);
+char *my_strrchr(const char *s, int c);
 #endif
