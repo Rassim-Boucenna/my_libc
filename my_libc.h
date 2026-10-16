@@ -17,4 +17,5 @@ int my_memcmp(const void *b1, const void *b2, size_t len);
 int my_isalnum(int c);
 char *my_strrchr(const char *s, int c);
 char *my_strstr(const char *haystack, const char *needle);
+void *my_memset(void *b, int c, size_t len);
 #endif
