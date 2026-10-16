@@ -26,6 +26,8 @@ char *my_strtok(char *str, const char *delim);
 size_t my_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t my_strlcat(char *dst, const char *src, size_t dstsize);
 void my_explicit_bzero(void *s, size_t len);
+int my_isalpha(int c);
 int my_isdigit(int c);
 void *my_reallocarray(void *ptr, size_t nmemb, size_t size);
+int my_isalpha(int c);
 #endif
