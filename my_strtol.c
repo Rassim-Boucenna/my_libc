@@ -18,7 +18,8 @@ static const char *
 skip_prefix(const char *s, int *base)
 {
 	if ((*base == 0 || *base == 16) && s[0] == '0' &&
-	    (s[1] == 'x' || s[1] == 'X')) {
+	    (s[1] == 'x' || s[1] == 'X') && digit_value(s[2]) >= 0 &&
+	    digit_value(s[2]) < 16) {
 		*base = 16;
 		return (s + 2);
 	}
@@ -41,6 +42,7 @@ my_strtol(const char *nptr, char **endptr, int base)
 	int sign = 1;
 	int digit;
 	int any = 0;
+	int overflow = 0;
 
 	if (nptr == NULL) {
 		if (endptr != NULL)
@@ -50,6 +52,10 @@ my_strtol(const char *nptr, char **endptr, int base)
 
 	if (endptr != NULL)
 		*endptr = (char *)nptr;
+	if (base != 0 && (base < 2 || base > 36)) {
+		errno = EINVAL;
+		return (0);
+	}
 
 	while (*p == ' ' || *p == '\t' || *p == '\n' || *p == '\r' ||
 	    *p == '\v' || *p == '\f')
@@ -64,7 +70,8 @@ my_strtol(const char *nptr, char **endptr, int base)
 
 	if (base == 0)
 		p = skip_prefix(p, &base);
-	else if (base == 16 && p[0] == '0' && (p[1] == 'x' || p[1] == 'X'))
+	else if (base == 16 && p[0] == '0' && (p[1] == 'x' || p[1] == 'X') &&
+	    digit_value(p[2]) >= 0 && digit_value(p[2]) < 16)
 		p += 2;
 
 	if (base < 2 || base > 36)
@@ -79,23 +86,25 @@ my_strtol(const char *nptr, char **endptr, int base)
 		digit = digit_value(*p);
 		if (digit < 0 || digit >= base)
 			break;
-		if (acc > cutoff ||
-		    (acc == cutoff && (unsigned long)digit > cutlim)) {
+		if (!overflow &&
+		    (acc > cutoff ||
+			(acc == cutoff && (unsigned long)digit > cutlim))) {
 			errno = ERANGE;
-			if (sign > 0)
-				return (LONG_MAX);
-			return (LONG_MIN);
+			overflow = 1;
 		}
-		acc = acc * (unsigned long)base + (unsigned long)digit;
+		if (!overflow)
+			acc = acc * (unsigned long)base + (unsigned long)digit;
 		any = 1;
 		p++;
 	}
 
 	if (endptr != NULL)
-		*endptr = (char *)p;
+		*endptr = (char *)(any ? p : nptr);
 
 	if (!any)
 		return (0);
+	if (overflow)
+		return ((sign > 0) ? LONG_MAX : LONG_MIN);
 
 	if (sign < 0) {
 		if (acc == ((unsigned long)LONG_MAX + 1UL))
