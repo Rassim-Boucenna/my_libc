@@ -1,20 +1,27 @@
 #include "my_libc.h"
 
 size_t
-my_strlcat(char *dst, const char *src, size_t dstsize)
+my_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t dst_len = my_strlen(dst);
-	size_t src_len = my_strlen(src);
+        size_t dst_len = 0;
+        size_t src_len = 0;
+        size_t i = 0;
 
-	if (dstsize <= dst_len)
-		return dstsize + src_len;
-
-	size_t copy_len = dstsize - dst_len - 1;
-	if (copy_len > src_len)
-		copy_len = src_len;
-
-	my_memcpy(dst + dst_len, src, copy_len);
-	dst[dst_len + copy_len] = '\0';
-
-	return dst_len + src_len;
+        while (dst_len < size && dst[dst_len] != '\0') {
+                dst_len++;
+        }
+        while (src[src_len] != '\0') {
+                src_len++;
+        }
+        if (dst_len == size) {
+                return (size + src_len);
+        }
+        while (src[i] != '\0' && (dst_len + i) < (size - 1)) {
+                dst[dst_len + i] = src[i];
+                i++;
+        }
+        dst[dst_len + i] = '\0';
+        return (dst_len + src_len);
 }
+
+
