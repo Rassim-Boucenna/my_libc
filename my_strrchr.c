@@ -1,16 +1,13 @@
-#include "my_libc.h"
+#include <stddef.h>
 
 char *
 my_strrchr(const char *s, int c)
 {
-	char *ch = NULL;
-	while (*s != '\0') {
-		if (*s == (char)c)
-			ch = (char *)s;
-		s++;
-	}
-	if ((char)c == '\0') {
-		return (char *)s;
-	}
-	return ch;
+	const char *last_occurence = NULL;
+	do {
+		if (*s == (char)c) {
+			last_occurence = s;
+		}
+	} while (*s++);
+	return (char *)last_occurence;
 }
