@@ -3,10 +3,13 @@
 char *
 my_strncat(char *dst, const char *src, size_t n)
 {
-	dst = my_strcat(dst, src);
-	dst = my_strncpy(dst, dst, n);
-	if (my_strlen(src) > n) {
-		dst[my_strlen(dst) - n] = '\0';
+	size_t dst_len = my_strlen(dst);
+	size_t i = 0;
+
+	while (i < n && src[i] != '\0') {
+		dst[dst_len + i] = src[i];
+		i++;
 	}
+	dst[dst_len + i] = '\0';
 	return dst;
 }
