@@ -14,11 +14,28 @@ digit_value(char c)
 	return (-1);
 }
 
+static const char *
+skip_prefix(const char *s, int *base)
+{
+	if ((*base == 0 || *base == 16) && s[0] == '0' &&
+	    (s[1] == 'x' || s[1] == 'X')) {
+		*base = 16;
+		return (s + 2);
+	}
+	if (*base == 0) {
+		if (s[0] == '0')
+			*base = 8;
+		else
+			*base = 10;
+	}
+	return (s);
+}
+
 long
 my_strtol(const char *nptr, char **endptr, int base)
 {
-	const char *p;
-	unsigned long acc;
+	const char *p = nptr;
+	unsigned long acc = 0;
 	unsigned long cutoff;
 	unsigned long cutlim;
 	int sign = 1;
@@ -31,7 +48,6 @@ my_strtol(const char *nptr, char **endptr, int base)
 		return (0);
 	}
 
-	p = nptr;
 	if (endptr != NULL)
 		*endptr = (char *)nptr;
 
@@ -46,25 +62,14 @@ my_strtol(const char *nptr, char **endptr, int base)
 		p++;
 	}
 
-	if (base == 0) {
-		if (*p == '0') {
-			if (p[1] == 'x' || p[1] == 'X') {
-				base = 16;
-				p += 2;
-			} else {
-				base = 8;
-			}
-		} else {
-			base = 10;
-		}
-	} else if (base == 16 && *p == '0' && (p[1] == 'x' || p[1] == 'X')) {
+	if (base == 0)
+		p = skip_prefix(p, &base);
+	else if (base == 16 && p[0] == '0' && (p[1] == 'x' || p[1] == 'X'))
 		p += 2;
-	}
 
 	if (base < 2 || base > 36)
 		return (0);
 
-	acc = 0;
 	cutoff = (sign > 0) ? (unsigned long)LONG_MAX :
 			      ((unsigned long)LONG_MAX + 1UL);
 	cutlim = cutoff % (unsigned long)base;
