@@ -1,19 +1,20 @@
+#include <stdio.h>
 #include "my_libc.h"
 
 void *
 my_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char *d = dst;
-	const unsigned char *s = src;
+	unsigned char *d = (unsigned char *)dst;
+	const unsigned char *s = (const unsigned char *)src;
 
 	if (d < s) {
-		while (len--)
-			*d++ = *s++;
-	} else {
-		d += len;
-		s += len;
-		while (len--)
-			*--d = *--s;
+		for (size_t i = 0; i < len; i++) {
+			d[i] = s[i];
+		}
+	} else if (d > s) {
+		for (size_t i = len; i > 0; i--) {
+			d[i - 1] = s[i - 1];
+		}
 	}
 
 	return dst;
