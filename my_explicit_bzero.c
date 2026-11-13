@@ -1,14 +1,12 @@
 #include "my_libc.h"
 
 void
-my_explicit_bzero(void *s, size_t len)
+my_explicit_bzero(void *buf, size_t len)
 {
-	volatile unsigned char *p;
+	volatile unsigned char *p = (volatile unsigned char *)buf;
 
-	if (s == NULL || len == 0)
-		return;
-	p = (volatile unsigned char *)s;
-	while (len--) {
+	while (len > 0) {
 		*p++ = 0;
+		len--;
 	}
 }
