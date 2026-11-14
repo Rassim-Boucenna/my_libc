@@ -23,9 +23,7 @@ my_strtok(char *str, const char *delim)
 		return NULL;
 	}
 
-
 	token = str;
-
 
 	while (*str != '\0' && my_strchr(delim, *str) == NULL)
 		str++;
