@@ -3,14 +3,11 @@
 char *
 my_strchr(const char *s, int c)
 {
-	size_t i = 0;
+	char char_c = (char)c;
+	do {
+		if (*s == char_c)
+			return ((char *)s);
+	} while (*s++);
 
-	while (s[i] != '\0') {
-		if ((unsigned char)s[i] == (unsigned char)c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	if ((unsigned char)c == '\0')
-		return ((char *)&s[i]);
 	return (NULL);
 }
